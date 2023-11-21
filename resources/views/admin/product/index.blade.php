@@ -7,8 +7,8 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h4>Quan li san pham
-                    <a href="{{url('admin/product/create')}}" class="btn btn-sm btn-primary float-end">Them san pham</a>
+                <h4>Quản lý sản phẩm
+                    <a href="{{url('admin/product/create')}}" class="btn btn-sm btn-primary float-end">Thêm sản phẩm</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -16,12 +16,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Danh muc</th>
-                            <th>Ten san pham</th>
-                            <th>Gia ban</th>
-                            <th>So luong</th>
-                            <th>Trang thai</th>
-                            <th>Hanh dong</th>
+                            <th>Danh mục</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,10 +32,10 @@
                                 <td>{{$product->name}}</td>
                                 <td>{{$product->selling_price}}</td>
                                 <td>{{$product->quantity}}</td>
-                                <td>{{$product->status == '1' ?'An' : 'Dang hoat dong'}}</td>
+                                <td>{{$product->status == '1' ?'Không hiển thị' : 'Hiển thị'}}</td>
                                 <td>
-                                    <a href="{{url('/admin/product/'.$product->id.'/edit')}}" class="btn btn-primary">Sua</a>
-                                    <a href="{{url('/admin/product/'.$product->id.'/delete')}}" onclick="return confirm('Ban co chac muon xoa san pham nay?')" class="btn btn-danger">Xoa</a>
+                                    <a href="{{url('/admin/product/'.$product->id.'/edit')}}" class="btn btn-primary">Sửa</a>
+                                    <a href="{{url('/admin/product/'.$product->id.'/delete')}}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
                         @endforeach

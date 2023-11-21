@@ -58,23 +58,16 @@
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label text-sm text-uppercase" for="addressalt">Địa chỉ giao hàng 2 </label>
-                                <input class="form-control form-control-lg" type="text" id="addressalt" wire:model='address2'>
+                                <input class="form-control form-control-lg" type="text" id="address2" wire:model='address2'>
                                 @error('address2')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
-                            </div>
-                            <div class="col-lg-6">
-                                <label class="form-label text-sm text-uppercase" for="city">Hình thức thanh toán </label>
-                                <select name="payment_mode" id="" wire:model='payment_mode'>
-                                    <option value="1" selected>Thanh toán khi nhận hàng</option>
-                                    <option value="2">Thanh toán bằng Momo</option>
-                                </select>
                             </div>
                         </div>
                     </form>
                 </div>
                 <!-- ORDER SUMMARY-->
-                <div class="col-lg-4">
+                <div class="col-lg-4" wire:ignore>
                     <div class="card border-0 rounded-0 p-lg-4 bg-light">
                         <div class="card-body">
                             <h5 class="text-uppercase mb-4">Hóa đơn của bạn</h5>
@@ -89,13 +82,12 @@
                                         class="text-uppercase small fw-bold">Tổng thanh toán</strong><span>{{number_format($totalProductAmout,0,",",".")}}₫</span></li>
                             </ul>
                             <br>
-                            @if($payment_mode == 1)
-                                <button class="btn btn-success" wire:click='codeOrder'>Thanh toán khi nhận hàng</button>
-                                <button class="btn btn-success" style="display:none">Thanh toán bằng Momo</button>
-                            @elseif($payment_mode == 2)
-                                <button class="btn btn-success" style="display:none">Thanh toán khi nhận hàng</button>
-                                <button class="btn btn-success">Thanh toán bằng Momo</button>
-                            @endif
+                            <button class="btn btn-success" wire:click='codeOrder' style="border-radius:4px; height: 45px; width:334.4px; margin-bottom: 12px ">Thanh toán khi nhận hàng</button>
+                            <div class="row">
+                                <div>
+                                    <div id="paypal-button-container"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,3 +95,41 @@
         </section>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://www.paypal.com/sdk/js?client-id=AVsr7p7IJEkAyR8kOyEpiExqJ1AQuw5lgV_dmuBZx0LrMlRyz5EmthjHtVt8ATIwy59PvDs0eqZzfel1&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        onClick: function() {
+            if(!document.getElementById('fullname').value || !document.getElementById('email').value || !document.getElementById('phone').value || !document.getElementById('address').value){
+                Livewire.emit('validationForAll');
+                return false;
+            }else{
+                @this.set('fullname',document.getElementById('fullname').value);
+                @this.set('email',document.getElementById('email').value);
+                @this.set('phone',document.getElementById('phone').value);
+                @this.set('address',document.getElementById('address').value);
+                @this.set('address2',document.getElementById('address2').value);
+            }
+        },
+        createOrder: (data, actions) =>{
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: "{{ number_format(($this->totalProductAmount) / 23000, 2, '.', '') }}"
+                    }
+                }]
+            });
+        },
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function(orderData){
+                console.log('Capture result', orderData, JSON.stringify(orderData,null,2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                if(transaction.status == "COMPLETED"){
+                    Livewire.emit('transactionEmit', transaction.id);
+                }
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+@endpush

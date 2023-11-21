@@ -18,13 +18,14 @@ Route::get('/', function () {
     return redirect('/index');
 });
 
-Route::get('/wishlist',[App\Http\Controllers\Frontend\WishlistController::class, 'index'])->name('wishlist')->middleware('auth');
-
 Auth::routes();
 
 Route::get('/index',[App\Http\Controllers\Frontend\FrontendController::class, 'index']);
 Route::get('/product/{slug}',[App\Http\Controllers\Frontend\FrontendController::class, 'detailProduct']);
 Route::get('/shop',[App\Http\Controllers\Frontend\FrontendController::class, 'shop']);
+Route::get('/orders',[App\Http\Controllers\Frontend\FrontendController::class,'orders'])->middleware('auth');
+Route::get('/detail-order/{id}',[App\Http\Controllers\Frontend\FrontendController::class,'detailOrder'])->middleware('auth');
+Route::get('/wishlist',[App\Http\Controllers\Frontend\WishlistController::class, 'index'])->name('wishlist')->middleware('auth');
 Route::get('/cart',[App\Http\Controllers\Frontend\FrontendController::class, 'cart'])->middleware('auth')->middleware('checkCart');
 Route::get('/checkout',[App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->middleware('auth')->middleware('checkCart');
 Route::get('/thank-you',[App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);

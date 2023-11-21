@@ -72,7 +72,8 @@
                                     href="#" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">Khác</a>
                                 <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
-                                    <a class="dropdown-item border-0 transition-link" href="index.html">Homepage</a>
+                                    <a class="dropdown-item border-0 transition-link" href="{{url('/orders')}}">Đơn hàng</a>
+                                    <a class="dropdown-item border-0 transition-link" href="{{url('/checkout')}}">Thanh toán</a>
                                 </div>
                             </li>
                         </ul>
@@ -171,8 +172,10 @@
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
         <script>
             window.addEventListener('message',event=>{
-                alertify.set('notifier','position', 'top-right');
-                alertify.notify(event.detail.text, event.detail.type);
+                if(event.detail){
+                    alertify.set('notifier','position', 'top-right');
+                    alertify.notify(event.detail.text, event.detail.type);
+                }
             });
 
         </script>
@@ -208,6 +211,7 @@
 
         </script>
         @livewireScripts
+        @stack('scripts')
         <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
             integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">

@@ -7,8 +7,8 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h4>Danh muc san pham
-                    <a href="{{url('admin/category/create')}}" class="btn btn-sm btn-primary float-end">Them danh muc</a>
+                <h4>Danh mục sản phẩm
+                    <a href="{{url('admin/category/create')}}" class="btn btn-sm btn-primary float-end">Thêm danh mục</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -16,10 +16,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Ten danh muc</th>
-                            <th>Danh muc cha</th>
-                            <th>Trang thai</th>
-                            <th>Hoat dong</th>
+                            <th>Tên danh mục</th>
+                            <th>Danh mục lớn</th>
+                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,10 +36,10 @@
                                         @endif
                                     @endforeach
                                 @endif
-                                <td>{{$category->status =='1' ? 'An':'Hoat dong'}}</td>
+                                <td>{{$category->status =='1' ? 'Không hiển thị':'Hiển thị'}}</td>
                                 <td>
-                                    <a href="{{url('admin/category/'.$category->id.'/edit')}}"class="btn btn-success">Sua</a>
-                                    <a href="{{url('admin/category/'.$category->id.'/delete')}}" onclick="return confirm('Ban co chac muon xoa danh muc nay?')" class="btn btn-danger">Xoa</a>
+                                    <a href="{{url('admin/category/'.$category->id.'/edit')}}"class="btn btn-success">Sửa</a>
+                                    <a href="{{url('admin/category/'.$category->id.'/delete')}}" onclick="return confirm('Bạn có chắc xóa danh mục này?')" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>Thêm màu sắc
-                    <a href="{{url('admin/color')}}" class="btn btn-sm btn-danger float-end">Quay lai</a>
+                    <a href="{{url('admin/color')}}" class="btn btn-sm btn-danger float-end">Quay lại</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="mb-3 col-md-12">
-                            <label>Trang thai</label>
+                            <label>Trạng thái</label>
                             <input type="checkbox" name="status" id="">
                         </div>
                         <div class="mb-3 col-md-12">

@@ -16,10 +16,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tieu de</th>
-                            <th>Anh</th>
-                            <th>Trang thai</th>
-                            <th>Hoat dong</th>
+                            <th>Tiêu đề</th>
+                            <th>Ảnh</th>
+                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,10 +32,10 @@
                                     <img src="{{asset('uploads/slider/'.$slider->image)}}" alt="">
                                     @endif
                                 </td>
-                                <td>{{$slider->status=='1' ? 'An':'Hoat dong'}}</td>
+                                <td>{{$slider->status=='1' ? 'Không hiển thị':'Hiển thị'}}</td>
                                 <td>
-                                    <a href="{{url('admin/slider/'.$slider->id.'/edit')}}"class="btn btn-success">Sua</a>
-                                    <a href="{{url('admin/slider/'.$slider->id.'/delete')}}" onclick="return confirm('Ban co chac muon xoa danh muc nay?')" class="btn btn-danger">Xoa</a>
+                                    <a href="{{url('admin/slider/'.$slider->id.'/edit')}}"class="btn btn-success">Sửa</a>
+                                    <a href="{{url('admin/slider/'.$slider->id.'/delete')}}" onclick="return confirm('Bạn có chắc muốn xóa slide này?')" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
                         @endforeach

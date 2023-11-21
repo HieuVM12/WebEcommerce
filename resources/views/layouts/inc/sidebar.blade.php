@@ -10,13 +10,13 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
                 <i class="mdi mdi-circle-outline menu-icon"></i>
-                <span class="menu-title">Quan ly danh muc</span>
+                <span class="menu-title">Quản lý danh mục</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category')}}">Xem danh muc</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category/create')}}">Them danh muc</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category')}}">Xem danh mục</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category/create')}}">Thêm danh mục</a>
                     </li>
                 </ul>
             </div>
@@ -25,13 +25,13 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#product" aria-expanded="false"
                 aria-controls="product">
                 <i class="mdi mdi-circle-outline menu-icon"></i>
-                <span class="menu-title">Quan ly san pham</span>
+                <span class="menu-title">Quản lý sản phẩm</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="product">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/product')}}">Xem san pham</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/product/create')}}">Them san pham</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/product')}}">Xem sản phẩm</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/product/create')}}">Thêm sản phẩm</a>
                     </li>
                 </ul>
             </div>

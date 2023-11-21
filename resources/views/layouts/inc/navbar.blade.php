@@ -21,7 +21,7 @@
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown me-1">
+            {{-- <li class="nav-item dropdown me-1">
                 <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
                     id="messageDropdown" href="#" data-bs-toggle="dropdown">
                     <i class="mdi mdi-message-text mx-0"></i>
@@ -115,7 +115,7 @@
                         </div>
                     </a>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
@@ -125,7 +125,7 @@
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Đăng xuất') }}
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

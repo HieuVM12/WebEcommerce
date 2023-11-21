@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="mb-3 col-md-12">
-                            <label>Trang thai</label>
+                            <label>Trạng thái</label>
                             <input type="checkbox" name="status" id="" {{$color->status=='1'?'checked':''}}>
                         </div>
                         <div class="mb-3 col-md-12">

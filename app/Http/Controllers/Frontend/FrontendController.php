@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -65,5 +66,18 @@ class FrontendController extends Controller
     public function emptyCart()
     {
         return view('frontend.emptycart');
+    }
+    public function orders()
+    {
+        $orders = Order::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        return view('frontend.order', compact('orders'));
+    }
+    public function detailOrder($id)
+    {
+        $order = Order::where('user_id',auth()->user()->id)->where('id',$id)->first();
+        if(!$order){
+            return abort(404);
+        }
+        return view('frontend.detailOrder',compact('order'));
     }
 }

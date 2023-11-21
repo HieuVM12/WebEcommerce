@@ -10,7 +10,34 @@ use Illuminate\Support\Str;
 class CheckoutShow extends Component
 {
     public $carts, $totalProductAmount;
-    public $fullname, $email, $phone, $address, $address2, $payment_mode = "1" , $payment_id =NULL;
+    public $fullname, $email, $phone, $address, $address2, $payment_mode =NULL , $payment_id =NULL;
+    protected $listeners = ['validationForAll', 'transactionEmit' => 'paidOnlineOrder'];
+    public function paidOnlineOrder($value)
+    {
+        $this->payment_id = $value;
+        $this->payment_mode = 'PayPal';
+        $codeOrder = $this->placeOrder();
+        if($codeOrder)
+        {
+            Cart::where('user_id',auth()->user()->id)->delete();
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Đặt hàng thành công',
+                'type' => 'success',
+                'status' => 200
+            ]);
+            return redirect('thank-you');
+        }else{
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Có lỗi xảy ra',
+                'type' => 'error',
+                'status' => 400
+            ]);
+        }
+    }
+    public function validationForAll()
+    {
+        $this->validate();
+    }
     public function rules()
     {
         return [
@@ -33,8 +60,9 @@ class CheckoutShow extends Component
             'address' =>$this->address,
             'address2' => $this->address2,
             'status_message' => 'Đang xử lý',
-            'payment_mode' => ($this->payment_mode == "1" ? 'Cash' : 'Momo'),
+            'payment_mode' => $this->payment_mode,
             'payment_id' =>$this->payment_id,
+            'total' => $this->totalProductAmount(),
         ]);
         foreach($this->carts as $cartItem)
         {
@@ -51,6 +79,7 @@ class CheckoutShow extends Component
     }
     public function codeOrder()
     {
+        $this->payment_mode = 'Cash';
         $codeOrder = $this->placeOrder();
         if($codeOrder)
         {
