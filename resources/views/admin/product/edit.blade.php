@@ -1,5 +1,11 @@
 @extends('layouts.admin')
-
+@section('style')
+<style>
+    .ck-editor__editable {
+        min-height: 400px;
+    }
+</style>
+@endsection
 @section('content')
 <div class="col-md-12">
     @if (session('message'))
@@ -56,16 +62,16 @@
                         </div>
                         <div class="mb-3">
                             <label>Tên sản phẩm</label>
-                            <input type="text" value="{{$product->name}}" class="form-control" name="name">
+                            <input type="text" value="{{$product->name}}" class="form-control" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label>Tóm tắt sản phẩm</label>
-                            <textarea name="small_description" id="" rows="4"
+                            <textarea name="small_description" id="editor1" rows="4"
                                 class="form-control">{{$product->small_description}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label>Mô tả sản phẩm</label>
-                            <textarea name="description" id="" rows="4"
+                            <textarea name="description" id="editor2" rows="4"
                                 class="form-control">{{$product->description}}</textarea>
                         </div>
                     </div>
@@ -250,5 +256,18 @@
         });
 
     });
+</script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor1' ))
+        .catch( error => {
+            console.error( error );
+        });
+
+    ClassicEditor
+        .create( document.querySelector( '#editor2' ))
+        .catch( error => {
+            console.error( error );
+        });
 </script>
 @endsection

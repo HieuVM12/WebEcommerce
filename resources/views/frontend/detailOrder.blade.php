@@ -34,7 +34,7 @@
                                 <p>ID: <strong>{{$order->id}}</strong></p>
                                 <p>Mã đơn hàng: <strong>{{$order->tracking_no}}</strong></p>
                                 <p>Ngày đặt hàng: <strong>{{$order->created_at->format('H:i:s d-m-Y')}}</strong></p>
-                                <p>Tiền thanh toán: <strong>{{number_format($order->total,0,",",".") }}₫</strong></p>
+                                <p>Tiền thanh toán: <strong>{{number_format($order->paid_money,0,",",".") }}₫</strong></p>
                                 <p>Hình thức thanh toán: <strong>@if ($order->payment_mode=='Cash')
                                     Thanh toán khi nhận hàng
                                 @else
@@ -108,6 +108,14 @@
                                     <tr>
                                         <td colspan="4"><strong>Tổng tiền</strong></td>
                                         <td colspan="1">{{number_format($order->total,0,",",".") }}₫</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><strong class="text-danger">Mã giảm giá</strong></td>
+                                        <td colspan="1" class="text-danger">-{{number_format($order->total*$order->discount_value/100,0,",",".") }}₫ ({{$order->discount_value}}%)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><strong>Thanh toán</strong></td>
+                                        <td colspan="1">{{number_format($order->paid_money,0,",",".") }}₫</td>
                                     </tr>
                                 </tbody>
                             </table>

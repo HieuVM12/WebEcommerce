@@ -28,7 +28,7 @@
                             </ul>
                             <h2 class="h4">{{$product->name}}</h2>
                             <p class="text-muted">{{ number_format($product->selling_price,0,",",".") }}₫</p>
-                            <p class="text-sm mb-4">{{$product->small_description}}</p>
+                            <p class="text-sm mb-4">{!! $product->small_description !!}</p>
                             <div class="row align-items-stretch mb-4 gx-0">
                                 <div class="col-sm-7">
                                     <div class="border d-flex align-items-center justify-content-between py-1 px-3">
@@ -93,6 +93,7 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="product text-center">
                     <div class="position-relative mb-3">
+                        <div class="badge text-white bg-danger">Trending</div>
                         <div class="badge text-white bg-"></div><a class="d-block" href="{{url('/product/'.$product->slug)}}"><img
                                 class="img-fluid w-100" src="{{$product->productImages[0]->image}}" alt="..."></a>
                         <div class="product-overlay">

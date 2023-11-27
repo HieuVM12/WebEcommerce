@@ -80,4 +80,16 @@ class FrontendController extends Controller
         }
         return view('frontend.detailOrder',compact('order'));
     }
+    public function cancelOrder(int $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        if($order->status_message != "Đang xử lý")
+        {
+            return redirect()->back()->with('message','Không thể hủy đơn hàng');
+        }
+        $order->update([
+            'status_message'=>'Hủy bỏ'
+        ]);
+        return redirect()->back()->with('message','Đã hủy đơn hàng thành công');
+    }
 }

@@ -42,6 +42,24 @@
                 <span class="menu-title">Quản lý màu sắc</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('admin/slider/')}}">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Quản lý Slide</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('admin/orders')}}">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Quản lý đơn hàng</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('admin/discounts')}}">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Quản lý mã giảm giá</span>
+            </a>
+        </li>
         {{-- <li class="nav-item">
             <a class="nav-link" href="pages/forms/basic_elements.html">
                 <i class="mdi mdi-view-headline menu-icon"></i>

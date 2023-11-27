@@ -24,6 +24,9 @@
         <div class="container p-0">
             <div class="row">
                 <div class="col-md-12">
+                    @if (session('message'))
+                    <div class="alert alert-success">{{session('message')}}</div>
+                    @endif
                     <div class="shadow bg-white p-3">
                         <h4 class="mb-4">Đơn hàng của tôi</h4>
                         <div class="table-responsive">
@@ -35,6 +38,7 @@
                                     <th>Phương thức thanh toán</th>
                                     <th>Ngày đặt hàng</th>
                                     <th>Trạng thái</th>
+                                    <th>Thanh toán</th>
                                     <th></th>
                                 </thead>
                                 <tbody>
@@ -54,13 +58,31 @@
                                         <td>
                                             {{$order->created_at->format('H:i:s d-m-Y')}}
                                         </td>
-                                        <td>{{$order->status_message}}</td>
+                                        @if ($order->status_message =="Hủy bỏ" || $order->status_message =="Không xử
+                                        lý")
+                                        <td class="text-danger"><strong>{{$order->status_message}}</strong></td>
+                                        @else
+                                        <td class="text-success"><strong>{{$order->status_message}}</strong></td>
+                                        @endif
+                                        <td>{{ number_format($order->paid_money,0,",",".") }}₫</td>
                                         <td>
-                                            <a href="{{url('/detail-order/'.$order->id)}}" class="btn btn-secondary" style="border-radius: 4px">Xem chi tiết</a>
+                                            <a href="{{url('/detail-order/'.$order->id)}}"
+                                                class="btn btn-outline-secondary" style="border-radius: 4px">Xem chi
+                                                tiết</a>
+                                            @if ($order->status_message==="Đang xử lý")
+                                            <form action="{{url('/cancel-order/'.$order->id)}}"
+                                                enctype="multipart/form-data" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger"
+                                                    style="border-radius: 4px" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?')">Hủy đơn</button>
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                                     @empty
-                                    <h4>Bạn chưa có đơn hàng nào</h4>
+                                    <tr>
+                                        <td colspan="8">Chưa có đơn hàng nào</td>
+                                    </tr>
                                     @endforelse
                                 </tbody>
                             </table>

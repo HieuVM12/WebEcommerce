@@ -3,15 +3,39 @@
 namespace App\Http\Livewire\Frontend\Checkout;
 
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\ProductColor;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Illuminate\Support\Str;
 class CheckoutShow extends Component
 {
-    public $carts, $totalProductAmount;
+    public $carts, $totalProductAmount,$discountCode;
     public $fullname, $email, $phone, $address, $address2, $payment_mode =NULL , $payment_id =NULL;
     protected $listeners = ['validationForAll', 'transactionEmit' => 'paidOnlineOrder'];
+    public function applyDiscountCode(){
+        $discount = Discount::where('code', $this->discountCode)
+                        ->where('valid_from', '<=', now())
+                        ->where('valid_to', '>=', now())
+                        ->where('status', 1)
+                        ->first();
+        if($discount){
+            session()->put('discount_value',$discount->discount_percentage);
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Mã giảm giá đã được áp dụng.',
+                'type' => 'success',
+                'status' => 200
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Mã giảm giá không hợp lệ.',
+                'type' => 'warning',
+                'status' => 404
+            ]);
+        }
+    }
     public function paidOnlineOrder($value)
     {
         $this->payment_id = $value;
@@ -63,7 +87,10 @@ class CheckoutShow extends Component
             'payment_mode' => $this->payment_mode,
             'payment_id' =>$this->payment_id,
             'total' => $this->totalProductAmount(),
+            'discount_value'=>session('discount_value')??NULL,
+            'paid_money'=>session('discount_value')?$this->totalProductAmount()*(100-session('discount_value'))/100 : $this->totalProductAmount(),
         ]);
+        session()->forget('discount_value');
         foreach($this->carts as $cartItem)
         {
             $orderItem = OrderItem::create([
@@ -74,6 +101,11 @@ class CheckoutShow extends Component
                 'price' => $cartItem->product->selling_price
             ]);
 
+            $productColor = ProductColor::findOrFail($cartItem->product_color_id);
+            $newQuantity = max(0, $productColor->quantity - $cartItem->quantity);
+            $productColor->update([
+                'quantity'=> $newQuantity,
+            ]);
         }
         return $order;
     }

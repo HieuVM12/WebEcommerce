@@ -1,5 +1,11 @@
 @extends('layouts.admin')
-
+@section('style')
+<style>
+    .ck-editor__editable {
+        min-height: 400px;
+    }
+</style>
+@endsection
 @section('content')
 <div class="col-md-12">
     @if (session('message'))
@@ -54,30 +60,30 @@
                         </div>
                         <div class="mb-3">
                             <label>Tên sản phẩm</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label>Tóm tắt sản phẩm</label>
-                            <textarea name="small_description" id="" rows="4" class="form-control"></textarea>
+                            <textarea name="small_description" id="editor1" rows="4" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Mô tả sản phẩm</label>
-                            <textarea name="description" id="" rows="4" class="form-control"></textarea>
+                            <textarea name="description" id="editor2" rows="4" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="tab-pane fade border p3" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                         tabindex="0">
                         <div class="mb-3">
                             <label>Tiêu đề Meta</label>
-                            <input type="text" class="form-control" name="meta_title">
+                            <input type="text" class="form-control" name="meta_title" required>
                         </div>
                         <div class="mb-3">
                             <label>Từ khóa Meta</label>
-                            <textarea name="meta_keyword" id="" rows="4" class="form-control"></textarea>
+                            <textarea name="meta_keyword" id="" rows="4" class="form-control" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Mô tả Meta</label>
-                            <textarea name="meta_description" id="" rows="4" class="form-control"></textarea>
+                            <textarea name="meta_description" id="" rows="4" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="tab-pane fade border p3" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
@@ -85,19 +91,19 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="">Giá gốc</label>
-                                <input type="text" name="original_price" class="form-control">
+                                <input type="text" name="original_price" id="original_price" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="">Giá bán</label>
-                                <input type="text" name="selling_price" class="form-control">
+                                <input type="text" name="selling_price" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="">Số lượng</label>
-                                <input type="number" name="quantity" class="form-control">
+                                <input type="number" name="quantity" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -117,7 +123,7 @@
                         tabindex="0">
                         <div class="mb-3">
                             <label for="">Upload ảnh sản phẩm</label>
-                            <input type="file" name="image[]"  class="form-control" multiple>
+                            <input type="file" name="image[]"  class="form-control" multiple required>
                         </div>
                     </div>
                     <div class="tab-pane fade border p3" id="color-tab-pane" role="tabpanel" aria-labelledby="color-tab"
@@ -146,4 +152,21 @@
     </div>
 </div>
 </div>
+
+@endsection
+
+@section('script')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor1' ))
+        .catch( error => {
+            console.error( error );
+        });
+
+    ClassicEditor
+        .create( document.querySelector( '#editor2' ))
+        .catch( error => {
+            console.error( error );
+        });
+</script>
 @endsection

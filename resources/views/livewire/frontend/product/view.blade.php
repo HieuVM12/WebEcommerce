@@ -30,7 +30,7 @@
                                 </ul>
                                 <h2 class="h4">{{$productRelated->name}}</h2>
                                 <p class="text-muted">{{ number_format($productRelated->selling_price,0,",",".") }}₫</p>
-                                <p class="text-sm mb-4">{{$productRelated->small_description}}</p>
+                                <p class="text-sm mb-4">{!! $productRelated->small_description !!}</p>
                                 <div class="row align-items-stretch mb-4 gx-0">
                                     <div class="col-sm-7">
                                         <div class="border d-flex align-items-center justify-content-between py-1 px-3">
@@ -118,13 +118,15 @@
                         @endforeach
                     </div>
                     <div class="align-items-stretch mb-4">
+                        @if ($this->productColorSelectedQuantity!==NULL)
                         <div class="col-sm-3">
-                            @if ($this->productColorSelectedQuantity < 0) <label
-                                class="btn-sm py-1 mt-2 text-white bg-danger">Hết hàng</label>
-                                @elseif($this->productColorSelectedQuantity >= 0)
-                                <label class="btn-sm py-1 mt-2 text-white bg-success">Còn hàng</label>
-                                @endif
+                            @if ($this->productColorSelectedQuantity > 0)
+                            <label class="btn-sm py-1 mt-2 text-white bg-success">Còn hàng</label>
+                            @elseif($this->productColorSelectedQuantity <= 0)
+                            <label class="btn-sm py-1 mt-2 text-white bg-danger">Hết hàng</label>
+                            @endif
                         </div>
+                        @endif
                     </div>
                     <div class="row align-items-stretch mb-4">
                         <div class="col-sm-5 pr-sm-0">
@@ -143,7 +145,7 @@
                         </div>
                         <div class="col-sm-3 pl-sm-0"><a
                                 class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"
-                                href="#" wire:click="addToCart({{$product->id}})">Thêm vào giỏ hàng</a></div>
+                                href="#" wire:click.prevent="addToCart({{$product->id}})">Thêm vào giỏ hàng</a></div>
                     </div><a class="text-dark p-0 mb-4 d-inline-block" href="#"
                         wire:click.prevent="addToWishlist({{$product->id}})"><i class="far fa-heart me-2"></i>Thêm
                         vào
@@ -168,7 +170,7 @@
                 <div class="tab-pane fade show active" id="description" role="tabpanel"
                     aria-labelledby="description-tab">
                     <div class="p-4 p-lg-5 bg-white">
-                        <p class="text-muted text-sm mb-0">{{$product->description}}</p>
+                        <p class="text-muted text-sm mb-0">{!! $product->description !!}</p>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">

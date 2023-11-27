@@ -24,6 +24,7 @@ Route::get('/index',[App\Http\Controllers\Frontend\FrontendController::class, 'i
 Route::get('/product/{slug}',[App\Http\Controllers\Frontend\FrontendController::class, 'detailProduct']);
 Route::get('/shop',[App\Http\Controllers\Frontend\FrontendController::class, 'shop']);
 Route::get('/orders',[App\Http\Controllers\Frontend\FrontendController::class,'orders'])->middleware('auth');
+Route::post('/cancel-order/{orderId}',[App\Http\Controllers\Frontend\FrontendController::class,'cancelOrder'])->middleware('auth');
 Route::get('/detail-order/{id}',[App\Http\Controllers\Frontend\FrontendController::class,'detailOrder'])->middleware('auth');
 Route::get('/wishlist',[App\Http\Controllers\Frontend\WishlistController::class, 'index'])->name('wishlist')->middleware('auth');
 Route::get('/cart',[App\Http\Controllers\Frontend\FrontendController::class, 'cart'])->middleware('auth')->middleware('checkCart');
@@ -75,4 +76,20 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/slider/{id}/delete', 'destroy');
     });
 
+    Route::controller(App\Http\Controllers\Admin\OrderController::class)->group(function () {
+        Route::get('/orders', 'index');
+        Route::get('/detail-order/{orderId}','view');
+        Route::post('/update-status-order/{orderId}','update');
+    });
+    Route::controller(App\Http\Controllers\Admin\DiscountController::class)->group(function () {
+        Route::get('/discounts', 'index');
+        Route::get('/discounts/create','create');
+        Route::post('/discounts/store','store');
+        Route::get('/sendCode/{discountId}','sendCode');
+        Route::post('/sendCode/{discountId}','postSendCode');
+        Route::get('/sendCodeAllUsers/{discountId}','sendCodeAllUsers');
+        Route::get('/discounts/delete/{id}','destroy');
+        Route::get('/discounts/edit/{id}','edit');
+        Route::put('/discounts/update/{id}','update');
+    });
 });

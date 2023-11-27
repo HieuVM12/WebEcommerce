@@ -69,7 +69,7 @@ class View extends Component
     {
         if(Auth::check()){
             if($this->product->where('id',$productId)->where('status','0')->exists()){
-                if($this->productColorSelectedQuantity!=null){
+                if($this->productColorSelectedQuantity!==null){
                     $productColor = $this->product->productColors()->where('id',$this->productColorId)->first();
                     if($productColor->quantity>0){
                         if($productColor->quantity >= $this->quantityCount){

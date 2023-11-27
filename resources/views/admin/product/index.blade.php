@@ -30,7 +30,7 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$product->category->name}}</td>
                                 <td>{{$product->name}}</td>
-                                <td>{{$product->selling_price}}</td>
+                                <td>{{number_format($product->selling_price,0,",",".") }}₫</td>
                                 <td>{{$product->quantity}}</td>
                                 <td>{{$product->status == '1' ?'Không hiển thị' : 'Hiển thị'}}</td>
                                 <td>
@@ -41,6 +41,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div>
+                    {{$products->links()}}
+                </div>
             </div>
         </div>
     </div>

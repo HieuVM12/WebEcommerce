@@ -21,7 +21,9 @@ class Order extends Model
         'status_message',
         'payment_mode',
         'payment_id',
-        'total'
+        'total',
+        'discount_value',
+        'paid_money'
     ];
 
     /**

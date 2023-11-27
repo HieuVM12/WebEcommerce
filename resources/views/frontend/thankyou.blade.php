@@ -13,6 +13,10 @@
                 <div class="col-lg-6 text-lg-end">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                            <li class="breadcrumb-item"><a class="btn btn-dark text-white" href="{{url('/orders')}}">Đơn hàng của tôi</a></li>
+                        </ol>
+                        <br>
+                        <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
                             <li class="breadcrumb-item"><a class="btn btn-dark text-white" href="{{url('/index')}}">Trở về trang chủ</a></li>
                         </ol>
                     </nav>
