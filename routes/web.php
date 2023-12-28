@@ -92,4 +92,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/discounts/edit/{id}','edit');
         Route::put('/discounts/update/{id}','update');
     });
+    Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::get('/users/delete/{id}', 'destroy');
+        Route::get('/users/edit/{id}','edit');
+        Route::put('/users/update/{id}','update');
+    });
 });

@@ -55,6 +55,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{url('admin/users')}}">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Quản lý người dùng</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{url('admin/discounts')}}">
                 <i class="mdi mdi-view-headline menu-icon"></i>
                 <span class="menu-title">Quản lý mã giảm giá</span>

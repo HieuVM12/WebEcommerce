@@ -64,11 +64,11 @@
                         </div>
                         <div class="mb-3">
                             <label>Tóm tắt sản phẩm</label>
-                            <textarea name="small_description" id="editor1" rows="4" class="form-control"></textarea>
+                            <textarea name="small_description" id="editor1" rows="4" class="form-control" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Mô tả sản phẩm</label>
-                            <textarea name="description" id="editor2" rows="4" class="form-control"></textarea>
+                            <textarea name="description" id="editor2" rows="4" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="tab-pane fade border p3" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"

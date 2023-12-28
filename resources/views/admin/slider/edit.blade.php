@@ -23,12 +23,12 @@
                     <div class="row">
                         <div class="mb-3 col-md-12">
                             <label>Tiêu đề</label>
-                            <input type="text" name="title" id="" class="form-control" value="{{$slider->title}}">
+                            <input type="text" name="title" id="" class="form-control" required value="{{$slider->title}}">
                         </div>
 
                         <div class="mb-3 col-md-12">
                             <label>Mô tả</label>
-                            <textarea name="description" id="" rows="3" class="form-control">{{$slider->description}}</textarea>
+                            <textarea name="description" id="" rows="3" class="form-control" required>{{$slider->description}}</textarea>
                         </div>
                         <div class="mb-3 col-md-12">
                             <label>Ảnh</label>
